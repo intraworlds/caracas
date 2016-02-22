@@ -5,11 +5,12 @@
 
 
 
-Management od a database schema represents not only a definition, but as well a lot of additional supporting task
+Management od a database schema represents not only a definition, but a lot of additional supporting task as well
  * documentation
  * vizualization
  * evolution (migrations)
  * 'the same version' policy in a multi-tenancy system
+ * creation of data set for unit/integration testing
 
 At the same time I would like to have only one, DSL based, human readable and pleasantly fotmatted schema definition. Let me introduce the answer: Caracas
 
