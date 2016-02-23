@@ -34,5 +34,5 @@ pp filtered
 # vizualization
 puts '==================='.green
 gv = Caracas::GraphViz.new
-model[:tables].each &gv.block
+model[:tables].each(&gv.block)
 puts gv.dot
