@@ -43,6 +43,8 @@ module Caracas
         tables = (context[:model][:tables] ||= [])
         tables << {name: ev.args[0]}
         context[:current_table] = tables.last
+      when :desc
+        context[:current_table][:desc] = ev.args[0]
       when :column
         columns = (context[:current_table][:columns] ||= [])
         col = {name: ev.args[0], type: ev.args[1]}
@@ -55,6 +57,9 @@ module Caracas
         fks << fk
       when :tags
         context[:current_table][:tags] = ev.args[0]
+      when :graphviz
+        graphvizs = (context[:current_table][:graphvizs] ||= [])
+        graphvizs << ev.args[0]
       else
         STDERR.puts "unknown element: #{ev.element}".red
       end
