@@ -3,7 +3,7 @@ require 'colorize'
 
 module Caracas
 
-  SimpleDumpParser = Caracas::Parser::Factory.build do
+  SimpleDumpParser = Parser::Factory.build do
     def start_schema
       context[:stream] = StringIO.new
     end
@@ -29,7 +29,7 @@ module Caracas
   end
 
   # {:tables => [ {:name => 'user', :columns => [{:name => 'count', :type => :integer}]}]}
-  HashModelParser = Caracas::Parser::Factory.build do
+  HashModelParser = Parser::Factory.build do
     def start_schema
       context[:model] = {name: context.schema_name}
     end
