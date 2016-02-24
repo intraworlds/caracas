@@ -13,10 +13,14 @@ module Caracas
     end
 
 
-    def table name, opts={}, &block
+    def table(name, opts={}, &block)
       fire_element_event(:start, :table, [name])
       self.instance_eval &block if block_given?
       fire_element_event(:end, :table, [name])
+    end
+    def desc(value)
+      fire_element_event(:start, :desc, [value])
+      fire_element_event(:end, :desc, [value])
     end
     def column(name, type, opts={})
       fire_element_event(:start, :column, [name, type, opts])
@@ -29,6 +33,10 @@ module Caracas
     def tags(names)
       fire_element_event(:start, :tags, [names])
       fire_element_event(:end, :tags, [names])
+    end
+    def graphviz(text)
+      fire_element_event(:start, :graphviz, [text])
+      fire_element_event(:end, :graphviz, [text])
     end
 
     private
