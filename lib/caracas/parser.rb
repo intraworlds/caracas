@@ -1,8 +1,10 @@
+# This script represents a way for parsing schema by exposing a simple iterator based API.
+# Iterator Parser is faster and uses less memory than a Model based parser.
+
 module Caracas
 
+  # Extension of the class for iterator based schema parsing.
   class Schema
-    attr_accessor :name
-    attr_accessor :lambda
 
     def parse(parser)
       @parser = parser
@@ -13,21 +15,24 @@ module Caracas
     end
 
 
-    def table name, opts={}, &block
+    def table(name, opts={}, &block)
       fire_element_event(:start, :table, [name])
-      self.instance_eval &block if block_given?
+      self.instance_eval(&block) if block_given?
       fire_element_event(:end, :table, [name])
     end
-    def column(name, type, opts={})
+    def column(name, type, opts={}, &block)
       fire_element_event(:start, :column, [name, type, opts])
+      self.instance_eval(&block) if block_given?
       fire_element_event(:end, :column, [name, type, opts])
     end
-    def fk(colname, desttable, opts={})
+    def fk(colname, desttable, opts={}, &block)
       fire_element_event(:start, :fk, [colname, desttable, opts])
+      self.instance_eval(&block) if block_given?
       fire_element_event(:end, :fk, [colname, desttable, opts])
     end
-    def tags(names)
+    def tags(names, &block)
       fire_element_event(:start, :tags, [names])
+      self.instance_eval(&block) if block_given?
       fire_element_event(:end, :tags, [names])
     end
 
@@ -44,8 +49,6 @@ module Caracas
   end
 
 
-  # This module represents a way for parsing schema by exposing a simple iterator based API.
-  # Iterator Parser is faster and uses less memory than a Model based parser.
   module Parser
     class Factory
       class << self
