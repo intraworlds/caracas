@@ -8,9 +8,12 @@ require 'caracas/graphviz'
 module Caracas
 
   # Basic entry point for a schema definition.
+  #
   # @param name [String] a logical name of the schema
   # @yield the DSL definition
+  #
   # @return [Schema] an object representing the schema
+  #
   # @see Schema
   def self.schema(name, &block)
     raise ArgumentError, 'name is blank' if name.nil? or name.strip.empty?
