@@ -4,13 +4,13 @@ module Caracas
   # This implementation iterates over all `table` entries in {HashModelParser} model
   #
   # @example generate a dot format file
-  #   gv = Caracas::GraphViz.new(model)
+  #   gv = Caracas::Graphviz.new(model)
   #   File.open('demo.dot', 'w') { |file| file.write(gv.dot) }
   #
   # @example additional processing of the generated file
   #   `dot -Tpng demo.dot > output.png`
   #   `feh output.png`
-  class GraphViz
+  class Graphviz
 
     # Constructor.
     #

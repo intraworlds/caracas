@@ -1,13 +1,20 @@
 require 'caracas/parser'
-require 'caracas/simple_parsers'
-require 'caracas/mapper'
+#require 'caracas/mapper'
 require 'caracas/simple_mappers'
-require 'caracas/graphviz'
+
 
 # The main namespace of the tool.
 module Caracas
 
+  module Parser
+    autoload :HashModeler, 'caracas/simple_parsers'
+  end
+  # module Mapper
+    autoload :Graphviz, 'caracas/mapper/graphviz'
+  # end
+
   # Basic entry point for a schema definition.
+  # See {file:demo.rb demo definition} for more info.
   #
   # @param name [String] a logical name of the schema
   # @yield the DSL definition
