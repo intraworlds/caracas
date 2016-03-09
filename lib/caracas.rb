@@ -1,17 +1,19 @@
 require 'caracas/parser'
-#require 'caracas/mapper'
-require 'caracas/simple_mappers'
+require 'caracas/mapper'
 
 
 # The main namespace of the tool.
 module Caracas
 
   module Parser
-    autoload :HashModeler, 'caracas/simple_parsers'
+    autoload :HashModeler,  'caracas/simple_parsers'
+    autoload :SimpleDumper, 'caracas/simple_parsers'
   end
-  # module Mapper
-    autoload :Graphviz, 'caracas/mapper/graphviz'
-  # end
+  module Mapper
+    autoload :TagFilter, 'caracas/mapper/tag_filter'
+    autoload :PlantUML,  'caracas/mapper/plantuml'
+  end
+    autoload :Graphviz,  'caracas/mapper/graphviz'
 
   # Basic entry point for a schema definition.
   # See {file:demo.rb demo definition} for more info.

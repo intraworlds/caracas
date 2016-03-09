@@ -18,21 +18,20 @@ sch = Caracas.schema 'demo' do
 end
 
 # simple text vizualization
-puts sch.parse Caracas::SimpleDumpParser.new
+puts sch.parse Caracas::Parser::SimpleDumper.new
 
 # transfer to Hash/Array based object model
 puts '==================='.green
 require 'pp'
-model = sch.parse Caracas::HashModelParser.new
+model = sch.parse Caracas::Parser::HashModeler.new
 pp model
 
 # tag based filtering
 puts '==================='.green
-filtered = Caracas.map_model(model, &Caracas::TagFilterMapper.new('alfa'))
+filtered = Caracas::Mapper::TagFilter.new(model, :foo).map
 pp filtered
 
 # vizualization
 puts '==================='.green
-gv = Caracas::GraphViz.new
-model[:tables].each(&gv.block)
-puts gv.dot
+gv = Caracas::Graphviz.new(model)
+puts gv.map

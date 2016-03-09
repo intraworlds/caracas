@@ -1,11 +1,11 @@
 module Caracas
 
   # Class to generate a Graphviz vizualization of a schema.
-  # This implementation iterates over all `table` entries in {HashModelParser} model
+  # This implementation iterates over all `table` entries in model produced by {Parser::HashModel}.
   #
   # @example generate a dot format file
   #   gv = Caracas::Graphviz.new(model)
-  #   File.open('demo.dot', 'w') { |file| file.write(gv.dot) }
+  #   File.open('demo.dot', 'w') { |file| file.write(gv.map) }
   #
   # @example additional processing of the generated file
   #   `dot -Tpng demo.dot > output.png`
@@ -14,21 +14,22 @@ module Caracas
 
     # Constructor.
     #
-    # @param model [Hash] a model produced by {HashModelParser}
+    # @param model [Hash] a model produced by {Parser::HashModeler}
     # @param opts [Hash] options
     #
-    # @see HashModelParser
+    # @see Parser::HashModeler
     def initialize(model, opts={})
-      @opts = opts
-      @model = model
+      raise 'missing model', ArgumentError if model.nil?
       raise 'missing :table entry in model', ArgumentError unless model.has_key? :tables
       raise 'missing :name entry in model', ArgumentError unless model.has_key? :name
+      @opts = opts
+      @model = model
     end
 
-    # Produces the 'dot' formatted text that can be vizualized by Graphviz.
+    # Maps the model and produces the formatted text that can be vizualized by Graphviz.
     #
-    # @return textual of model representation in Graphviz format
-    def dot
+    # @return [String] textual representation of model in Graphviz format
+    def map
       shape = @opts.fetch :shape, 'record'
       rslt = StringIO.new
       rslt.puts "digraph #{@model[:name]} {"
