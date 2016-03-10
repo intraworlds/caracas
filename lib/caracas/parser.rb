@@ -47,6 +47,10 @@ module Caracas
       self.instance_eval(&block) if block_given?
       fire_element_event(:end, :tags, [names])
     end
+    def plantuml(text)
+      fire_element_event(:start, :plantuml, [text])
+      fire_element_event(:end, :plantuml, [text])
+    end
     def graphviz(text)
       fire_element_event(:start, :graphviz, [text])
       fire_element_event(:end, :graphviz, [text])

@@ -61,6 +61,9 @@ module Caracas
           fks << fk
         when :tags
           context[:current_table][:tags] = ev.args[0]
+        when :plantuml
+          plantumls = (context[:current_table][:plantumls] ||= [])
+          plantumls << ev.args[0]
         when :graphviz
           graphvizs = (context[:current_table][:graphvizs] ||= [])
           graphvizs << ev.args[0]

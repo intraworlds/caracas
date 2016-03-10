@@ -17,7 +17,13 @@ module Caracas
         rslt.puts "Class #{table[:name]} << (T,#FF7700) >> {\n  #{desc}\n  --\n}"
         # edges
         table.fetch(:fks, []).each do |fk|
-          rslt.puts "#{table[:name]} --> #{fk[:table]}"
+          fk_opts = fk.fetch(:opts, {})
+          virtual = (fk_opts.has_key?(:virtual) and fk_opts[:virtual])
+          rslt.puts "#{table[:name]} #{virtual ? '..>' : '-->'} #{fk[:table]} #{': virtual' if virtual}"
+        end
+        # plantuml
+        table.fetch(:plantumls, []).each do |text|
+          rslt.puts "#{text}"
         end
       end
 
